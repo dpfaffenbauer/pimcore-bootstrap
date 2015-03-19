@@ -1,7 +1,13 @@
 <?php
 
+namespace Bootstrap;
 
-class Bootstrap_Plugin  extends Pimcore_API_Plugin_Abstract implements Pimcore_API_Plugin_Interface {
+use Bootstrap\Controller\Plugin\ScriptPaths;
+use Pimcore\API\Plugin\AbstractPlugin;
+use Pimcore\API\Plugin\PluginInterface;
+use Zend_EventManager_Event as Event;
+
+class Plugin  extends AbstractPlugin implements PluginInterface {
     
     protected static $installedFileName = "/var/config/.bootstrap";
 
@@ -15,12 +21,6 @@ class Bootstrap_Plugin  extends Pimcore_API_Plugin_Abstract implements Pimcore_A
         return file_exists(PIMCORE_WEBSITE_PATH . self::$installedFileName);
     }
     
-    public function preDispatch($e)
-    {
-
-        //$e->getTarget()->registerPlugin(new Bootstrap_Controller_Plugin_Debug(), 11);
-    }
-
     public static function install()
     {
         self::recurse_copy(PIMCORE_PLUGINS_PATH . "/Bootstrap/views/areas", PIMCORE_WEBSITE_VAR . "/areas");
@@ -42,7 +42,7 @@ class Bootstrap_Plugin  extends Pimcore_API_Plugin_Abstract implements Pimcore_A
             if(is_dir($respository . "/" . $blockDir)) 
             {
                 if(is_file($respository . "/" . $blockDir . "/area.xml"))
-                    Bootstrap_Plugin::rrmdir(PIMCORE_WEBSITE_VAR . "/areas/" . $blockDir);
+                    self::rrmdir(PIMCORE_WEBSITE_VAR . "/areas/" . $blockDir);
             }
         }
 
@@ -60,7 +60,7 @@ class Bootstrap_Plugin  extends Pimcore_API_Plugin_Abstract implements Pimcore_A
                 if ($object != "." && $object != "..") 
                 {
                     if (filetype($dir."/".$object) == "dir") 
-                        Bootstrap_Plugin::rrmdir($dir."/".$object); 
+                        self::rrmdir($dir."/".$object);
                     else 
                         unlink($dir."/".$object); 
                 }
@@ -79,7 +79,7 @@ class Bootstrap_Plugin  extends Pimcore_API_Plugin_Abstract implements Pimcore_A
         while(false !== ( $file = readdir($dir)) ) { 
             if (( $file != '.' ) && ( $file != '..' )) { 
                 if ( is_dir($src . '/' . $file) ) { 
-                    self::recurse_copy($src . '/' . $file,$dst . '/' . $file); 
+                    self::recurse_copy($src . '/' . $file,$dst . '/' . $file);
                 } 
                 else { 
                     copy($src . '/' . $file,$dst . '/' . $file); 
