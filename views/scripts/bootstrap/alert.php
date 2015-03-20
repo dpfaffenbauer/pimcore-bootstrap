@@ -30,5 +30,5 @@ $dismissable = $this->checkbox("dismissable")->isChecked();
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     <?php } ?>
 
-    <?= $this->areablock('a-' . $this->brick->getIndex()) // TODO: , array("excludeBricks" => array("alert", "panel", "accordion"))) ?>
+    <?= $this->template("helper/area.php", array("name" => "a-" . $this->brick->getIndex(), "excludeBricks" => array("alert", "panel", "accordion"))) ?>
 </div>

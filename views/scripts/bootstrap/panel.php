@@ -27,6 +27,6 @@ $type = $this->select("type")->getData();
         </div>
     <?php } ?>
     <div class="panel-body">
-        <?= $this->areablock('panel-' . $this->brick->getIndex()) ?>
+        <?= $this->template("helper/area.php", array("name" => "panel-" . $this->brick->getIndex(), "params" => array(), "excludeBricks" => array())) ?>
     </div>
 </div>
