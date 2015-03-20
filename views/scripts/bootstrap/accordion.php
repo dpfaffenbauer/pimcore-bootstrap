@@ -33,7 +33,7 @@ $type = $this->select("type")->getData();
         <div id="collapse<?= $this->brick->getId() . $this->brick->getIndex() ?>"
              class="panel-collapse collapse <?= $this->editmode ? "in" : "" ?>">
             <div class="panel-body">
-                <?= $this->template("helper/area.php", array("name" => "a", "excludeBricks" => array("accordion"))) ?>
+                <?= $this->areablock('a') // TODO: , array("excludeBricks" => array("accordion")) ?>
             </div>
         </div>
     </div>
