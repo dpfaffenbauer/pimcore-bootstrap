@@ -1,15 +1,15 @@
 pimcore.registerNS("pimcore.plugin.bootstrap");
 
 pimcore.plugin.bootstrap = Class.create(pimcore.plugin.admin, {
-    getClassName: function() {
+    getClassName: function () {
         return "pimcore.plugin.bootstrap";
     },
 
-    initialize: function() {
+    initialize: function () {
         pimcore.plugin.broker.registerPlugin(this);
     },
- 
-    pimcoreReady: function (params,broker){
+
+    pimcoreReady: function (params, broker) {
         // alert("Example Ready!");
     }
 });
