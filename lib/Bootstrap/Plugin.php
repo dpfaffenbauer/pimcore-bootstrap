@@ -5,6 +5,7 @@ namespace Bootstrap;
 use Bootstrap\Controller\Plugin\ScriptPaths;
 use Pimcore\API\Plugin\AbstractPlugin;
 use Pimcore\API\Plugin\PluginInterface;
+use Pimcore\Controller\Action\Frontend;
 
 class Plugin extends AbstractPlugin implements PluginInterface
 {
@@ -14,6 +15,14 @@ class Plugin extends AbstractPlugin implements PluginInterface
     public function __construct($jsPaths = null, $cssPaths = null, $alternateIndexDir = null)
     {
         parent::__construct($jsPaths, $cssPaths);
+    }
+
+    public static function onFrontInit(Frontend $front)
+    {
+        /** @var \Pimcore\View $view */
+        $view = $front->view;
+        $view->addScriptPath(PIMCORE_PLUGINS_PATH . '/Bootstrap/views/scripts');
+        $view->addHelperPath(PIMCORE_PLUGINS_PATH . '/Bootstrap/lib/Bootstrap/View/Helper', '\\Bootstrap\\View\\Helper\\');
     }
 
     public static function isInstalled()
